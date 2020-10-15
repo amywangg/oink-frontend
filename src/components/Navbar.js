@@ -14,7 +14,7 @@ import { ThemeProvider } from "@material-ui/styles";
 import pink from "@material-ui/core/colors/pink";
 import HomeIcon from "@material-ui/icons/Home";
 import SettingsIcon from "@material-ui/icons/Settings";
-import useStyles from "./styles";
+import { useStyles } from "./styles";
 
 // Color Palette
 // Dark Pink: #FF3576
