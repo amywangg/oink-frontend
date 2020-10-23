@@ -1,4 +1,10 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
+import PropTypes from "prop-types";
+
+import { compose } from "redux";
+import { withRouter } from "react-router-dom";
+import { createStructuredSelector } from "reselect";
+
 import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -14,35 +20,29 @@ import { ThemeProvider } from "@material-ui/styles";
 import pink from "@material-ui/core/colors/pink";
 import HomeIcon from "@material-ui/icons/Home";
 import SettingsIcon from "@material-ui/icons/Settings";
+
+import usePersistedState from "../PersistedState";
 import { useStyles } from "./styles";
 
-// Color Palette
-// Dark Pink: #FF3576
-// Medium pink: #FF8FB3
-// Lighter pink: #F9DAE4
-// Sidebar pink: #FDF6F8
-// Grey: #EEEEEE
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: pink[50],
+    },
+    secondary: {
+      main: pink[100],
+    },
+  },
+});
 
-// Circle: #FFAEC8
-// Lighter circle: #F9DAE4
-
-// Dark line: #AB4A78
-
-export default function PersistentDrawerLeft() {
+const AppPage = withRouter(({ children, history }) => {
   const classes = useStyles();
 
-  const theme = createMuiTheme({
-    palette: {
-      primary: {
-        main: pink[50],
-      },
-      secondary: {
-        main: pink[100],
-      },
-    },
-  });
+  const handleRoute = (route) => {
+    history.push(route);
+  };
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = usePersistedState("drawer", false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -99,22 +99,36 @@ export default function PersistentDrawerLeft() {
               </ListItemIcon>
               <ListItemText primary="Home" />
             </ListItem>
-            <ListItem button key="home">
+            <ListItem button key="settings">
               <ListItemIcon>
                 <SettingsIcon />
               </ListItemIcon>
               <ListItemText primary="Settings" />
             </ListItem>
           </List>
-          <div class="circle1"></div>
-          <div class="circle2"></div>
+          <div className="circle1"></div>
+          <div className="circle2"></div>
         </Drawer>
         <main
           className={clsx(classes.content, {
             [classes.contentShift]: open,
           })}
-        ></main>
+        >
+          {children}
+        </main>
       </ThemeProvider>
     </div>
   );
+});
+
+AppPage.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+const mapStateToProps = createStructuredSelector({});
+
+export function mapDispatchToProps(dispatch) {
+  return {};
 }
+
+export default compose(memo)(AppPage);

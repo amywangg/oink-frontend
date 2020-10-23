@@ -1,6 +1,9 @@
 const path = require("path");
 const express = require("express");
+const cors = require('cors')
+
 const app = express();
+app.use(cors())
 // heroku will provide a port or local
 const port = process.env.PORT || 3002;
 
