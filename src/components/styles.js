@@ -58,4 +58,7 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: "50%",
     backgroundColor: "#EF6A6A",
   },
+  title: {
+    fontSize: "15",
+  },
 }));
