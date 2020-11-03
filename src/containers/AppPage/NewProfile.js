@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { Component } from "react";
+import './styles.css'
 
 // Color Palette
 // Dark Pink: #FF3576

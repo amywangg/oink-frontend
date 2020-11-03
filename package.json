@@ -17,7 +17,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-google-login": "^5.1.22",
-    "react-redux": "^7.2.2",
+    "react-redux": "^7.2.1",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-router-redux": "^4.0.8",
@@ -31,7 +31,7 @@
     "start": "node server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "dev": "react-scripts start",
+    "react": "react-scripts start",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -42,17 +42,5 @@
   "devDependencies": {
     "bulma": "^0.9.1",
     "node-sass": "^4.14.1"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
   }
 }
