@@ -1,31 +1,66 @@
-import React from "react";
-import { useGoogleLogout } from "react-google-login";
-import usePersistedState from "../PersistedState";
+import React, { Component } from "react";
+// refresh token
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { signOut } from "../../redux/actions/auth";
+
+import { Button, IconButton } from "@material-ui/core";
+import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 
 const clientId =
-  "769564108089-kjitojja4egodmt4n8qor9jj12af2uh4.apps.googleusercontent.com";
+  "719809811606-vp65cuc29d77cajpuec06vl1g0hnfr0r.apps.googleusercontent.com";
 
-function LogoutHooks() {
-  const onLogoutSuccess = (res) => {
-    localStorage.setItem("token", false);
-    console.log("Logged out Success");
+class Logout extends Component {
+  componentDidMount() {
+    window.gapi.load("client:auth2", () => {
+      window.gapi.client
+        .init({
+          clientId: clientId,
+          scope: "profile email",
+        })
+        .then(() => {
+          this.auth = window.gapi.auth2.getAuthInstance();
+          this.onAuthChange(this.auth.isSignedIn.get());
+          this.auth.isSignedIn.listen(this.onAuthChange);
+        });
+    });
+  }
+
+  onAuthChange = (isSignedIn) => {
+    if (!isSignedIn) {
+      this.props.signOut();
+    }
   };
-  const onFailure = () => {
-    console.log("Handle failure cases");
+
+  onSignOutClick = () => {
+    this.auth.signOut();
   };
 
-  const { signOut } = useGoogleLogout({
-    clientId,
-    onLogoutSuccess,
-    onFailure,
-  });
-
-  return (
-    <button onClick={signOut} className="button">
-      <img src="assets/google.svg" alt="google login" className="icon"></img>
-      <span className="buttonText">Sign out</span>
-    </button>
-  );
+  render() {
+    return !this.props.isSignedIn ? (
+      <Redirect to={{ pathname: "/login" }} />
+    ) : (
+      <div>
+        {this.props.drawerOpen ? (
+          <Button
+            onClick={this.onSignOutClick}
+            variant="contained"
+            color="secondary"
+          >
+            Sign Out
+          </Button>
+        ) : (
+          <IconButton onClick={this.onSignOutClick} color="secondary">
+            <MeetingRoomIcon />
+          </IconButton>
+        )}
+      </div>
+    );
+  }
 }
 
-export default LogoutHooks;
+const mapStateToProps = (state) => {
+  return { isSignedIn: state.auth.isSignedIn };
+};
+
+export default connect(mapStateToProps, { signOut })(Logout);

@@ -1,46 +1,64 @@
-import React from "react";
-import { useGoogleLogin } from "react-google-login";
+import React, { Component } from "react";
 // refresh token
-import { refreshTokenSetup } from "./RefreshToken";
-import usePersistedState from "../PersistedState";
 import { Redirect } from "react-router-dom";
-import "./styles.css";
-const createHistory = require("history").createBrowserHistory;
+import { connect } from "react-redux";
+import { signIn } from "../../redux/actions/auth";
 
 const clientId =
-  "769564108089-kjitojja4egodmt4n8qor9jj12af2uh4.apps.googleusercontent.com";
-const LoginPage = () => {
-  const [loggedIn, setLoggedIn] = usePersistedState("token", false);
-  let history = createHistory();
-      
-  const onSuccess = (res) => {
-    history.push("/");
-    console.log(res);
-    setLoggedIn(true);
-    refreshTokenSetup(res);
+  "719809811606-vp65cuc29d77cajpuec06vl1g0hnfr0r.apps.googleusercontent.com";
+
+class LoginPage extends Component {
+  componentDidMount() {
+    window.gapi.load("client:auth2", () => {
+      window.gapi.client
+        .init({
+          clientId: clientId,
+          scope: "profile email",
+        })
+        .then(() => {
+          this.auth = window.gapi.auth2.getAuthInstance();
+          this.onAuthChange(this.auth.isSignedIn.get());
+          this.auth.isSignedIn.listen(this.onAuthChange);
+        });
+    });
+  }
+
+  onAuthChange = (isSignedIn) => {
+    if (isSignedIn) {
+      var profile = this.auth.currentUser.get().getBasicProfile();
+      this.props.signIn({
+        id: profile.getId(),
+        first_name: profile.getGivenName(),
+        last_name: profile.getFamilyName(),
+        email: profile.getEmail(),
+      });
+    }
   };
 
-  const onFailure = (res) => {
-    console.log("Login failed: res:", res);
+  onSignInClick = () => {
+    this.auth.signIn();
   };
 
-  const { signIn } = useGoogleLogin({
-    onSuccess,
-    onFailure,
-    clientId,
-    isSignedIn: true,
-  });
+  render() {
+    return this.props.isSignedIn ? (
+      <Redirect to={{ pathname: "/" }} />
+    ) : (
+      <div>
+        <button onClick={this.onSignInClick} className="button">
+          <img
+            src="assets/google.png"
+            alt="google login"
+            className="icon"
+          ></img>
+          <span className="buttonText">Sign in with Google</span>
+        </button>
+      </div>
+    );
+  }
+}
 
-  return localStorage.getItem("token") ? (
-    <Redirect to="/" />
-  ) : (
-    <div className="div-root">
-      <button onClick={signIn} className="button">
-        <img src="assets/google.png" alt="google login" className="icon"></img>
-        <span className="buttonText">Sign in with Google</span>
-      </button>
-    </div>
-  );
+const mapStateToProps = (state) => {
+  return { isSignedIn: state.auth.isSignedIn };
 };
 
-export default LoginPage;
+export default connect(mapStateToProps, { signIn })(LoginPage);
