@@ -1,23 +1,20 @@
 import React from "react";
-
-import ReactDOM from "react-dom";
 import "./App.css";
-import { Route, BrowserRouter, Switch } from "react-router-dom";
-import ProtectedRoute from "./ProtectedRoute";
-
+import { Route, Switch } from "react-router-dom";
+import ProtectedRoute from "./utils/ProtectedRoute";
+import { BrowserRouter as Router } from "react-router-dom";
 import Dashboard from "./containers/Dashboard";
 import LoginPage from "./containers/Auth/Login";
 
-function App() {
-  return ReactDOM.render(
-    <BrowserRouter>
+const App = () => {
+  return (
+    <Router>
       <Switch>
         <Route path="/login" component={LoginPage} />
-        <ProtectedRoute exact={true} path="/" component={Dashboard} />
+        <ProtectedRoute exact path="/" component={Dashboard} />
       </Switch>
-    </BrowserRouter>,
-    document.getElementById("root")
+    </Router>
   );
-}
+};
 
 export default App;
