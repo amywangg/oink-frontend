@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 class ProtectedRoute extends Component {
   render() {
     const Component = this.props.component;
-    console.log(this.props.isSignedIn);
     return this.props.isSignedIn ? (
       <Component />
     ) : (

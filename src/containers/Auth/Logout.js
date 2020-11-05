@@ -6,6 +6,8 @@ import { signOut } from "../../redux/actions/auth";
 
 import { Button, IconButton } from "@material-ui/core";
 import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
+import { withStyles } from "@material-ui/styles";
+import { styles } from "./styles";
 
 const clientId =
   "719809811606-vp65cuc29d77cajpuec06vl1g0hnfr0r.apps.googleusercontent.com";
@@ -63,4 +65,6 @@ const mapStateToProps = (state) => {
   return { isSignedIn: state.auth.isSignedIn };
 };
 
-export default connect(mapStateToProps, { signOut })(Logout);
+export default connect(mapStateToProps, { signOut })(
+  withStyles(styles)(Logout)
+);
