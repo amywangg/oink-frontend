@@ -1,16 +1,20 @@
 import React from "react";
-import Navbar from "./components/Navbar";
-import NewProfile from "./components/NewProfile";
-import logo from "./oink-icon.png";
 import "./App.css";
+import { Route, Switch } from "react-router-dom";
+import ProtectedRoute from "./utils/ProtectedRoute";
+import { BrowserRouter as Router } from "react-router-dom";
+import Dashboard from "./containers/Dashboard";
+import LoginPage from "./containers/Auth/Login";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <Navbar />
-      <NewProfile />
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/login" component={LoginPage} />
+        <ProtectedRoute exact path="/" component={Dashboard} />
+      </Switch>
+    </Router>
   );
-}
+};
 
 export default App;
