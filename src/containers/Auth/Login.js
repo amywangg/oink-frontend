@@ -4,8 +4,8 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { signIn } from "../../redux/actions/auth";
 
-import { withStyles } from "@material-ui/styles";
-import {styles} from "./styles";
+// import { withStyles } from "@material-ui/styles";
+// import {styles} from "./styles";
 
 const clientId =
   "719809811606-vp65cuc29d77cajpuec06vl1g0hnfr0r.apps.googleusercontent.com";
@@ -64,4 +64,4 @@ const mapStateToProps = (state) => {
   return { isSignedIn: state.auth.isSignedIn };
 };
 
-export default connect(mapStateToProps, { signIn })( withStyles(styles)(LoginPage));
+export default connect(mapStateToProps, { signIn })(LoginPage);
