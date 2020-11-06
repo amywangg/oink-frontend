@@ -2,7 +2,7 @@ import React, { Component } from "react";
 // refresh token
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { signIn } from "../../redux/actions/auth";
+import { signIn, getUser } from "../../redux/actions/auth";
 
 // import { withStyles } from "@material-ui/styles";
 // import {styles} from "./styles";
@@ -29,12 +29,14 @@ class LoginPage extends Component {
   onAuthChange = (isSignedIn) => {
     if (isSignedIn) {
       var profile = this.auth.currentUser.get().getBasicProfile();
-      this.props.signIn({
+      var payload = {
         id: profile.getId(),
         first_name: profile.getGivenName(),
         last_name: profile.getFamilyName(),
         email: profile.getEmail(),
-      });
+      };
+      this.props.signIn(payload);
+      this.props.getUser(payload);
     }
   };
 
@@ -43,8 +45,10 @@ class LoginPage extends Component {
   };
 
   render() {
-    return this.props.isSignedIn ? (
+    return this.props.isSignedIn && this.props.isNewUser === false ? (
       <Redirect to={{ pathname: "/" }} />
+    ) : this.props.isSignedIn && this.props.isNewUser ? (
+      <Redirect to={{ pathname: "/register" }} />
     ) : (
       <div>
         <button onClick={this.onSignInClick} className="button">
@@ -61,7 +65,7 @@ class LoginPage extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { isSignedIn: state.auth.isSignedIn };
+  return { isSignedIn: state.auth.isSignedIn, isNewUser: state.auth.isNewUser };
 };
 
-export default connect(mapStateToProps, { signIn })(LoginPage);
+export default connect(mapStateToProps, { signIn, getUser })(LoginPage);

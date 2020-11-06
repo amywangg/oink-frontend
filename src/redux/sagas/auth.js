@@ -1,39 +1,58 @@
-import { put, call } from "redux-saga/effects";
 import {
-  registerUserService,
-  loginUserService,
-} from "../services/authenticationService";
+  call,
+  put,
+  take,
+  takeLatest,
+  actionChannel,
+  all,
+} from "redux-saga/effects";
+import * as types from "../actions/types";
+import axios from "axios";
 
-import * as types from "../actions";
+const API_URL = process.env.REACT_APP_API_URL;
 
-export function* authorizeWithGoogle() {
-  const provider = PROVIDER.GOOGLE;
+// create new user
+function* createUser(action) {
   try {
-    if (!googleAuthAvailable()) {
-      yield call(
-        () =>
-          new Promise((resolve) =>
-            loadScript(GOOGLE_SCRIPT, () => {
-              const g = window.gapi;
-              g.load("auth2", () => {
-                g.auth2.init({
-                  client_id: GOOGLE_CLIENT_ID,
-                  scope: GOOGLE_SCOPE,
-                });
-                resolve();
-              });
-            })
-          )
-      );
-    }
-    const ga = window.gapi.auth2.getAuthInstance();
-    const googleUser = yield call(
-      () => new Promise((resolve, reject) => ga.signIn().then(resolve, reject))
-    );
-    const { id_token } = googleUser.getAuthResponse();
-
-    yield* authorize(provider, id_token);
-  } catch (err) {
-    reportError(provider, err);
+    const user = action.payload;
+    const userDetails = yield axios
+      .post(`${API_URL}/user/signup`, user)
+      .then((response) => response.data);
+    yield put({
+      type: types.CREATE_USER_SUCCESS,
+      data: userDetails,
+    });
+  } catch (error) {
+    yield put({ type: types.CREATE_USER_FAILED, error });
   }
+}
+
+// see if user exists in system
+function* fetchUserDetails(action) {
+  try {
+    const user_id = action.payload.id;
+    const userDetails = yield axios
+      .get(`${API_URL}/user/${user_id}`)
+      .then((response) => response.data);
+
+    if (userDetails === null) {
+      // if user data cannot be retrieved then proceed to registration process
+      yield put({ type: types.CREATE_USER, data: action.payload });
+    } else {
+      yield put({ type: types.GET_USER_SUCCESS, data: userDetails });
+    }
+  } catch (error) {
+    yield put({ type: types.GET_USER_FAILURE, error });
+  }
+}
+
+export function* userWatcher() {
+  const userChannel = yield actionChannel(types.GET_USER);
+  while (true) {
+    const action = yield take(userChannel);
+    yield call(fetchUserDetails, action);
+  }
+}
+export function* authSaga() {
+  yield all([takeLatest(types.CREATE_USER, createUser)]);
 }
