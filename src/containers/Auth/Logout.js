@@ -3,6 +3,9 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { signOut } from "../../redux/actions/auth";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
 
 import { Button, IconButton } from "@material-ui/core";
 import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
@@ -40,15 +43,14 @@ class Logout extends Component {
     return !this.props.isSignedIn ? (
       <Redirect to={{ pathname: "/login" }} />
     ) : (
-      <div>
+      <div style={{ display: "flex"}}>
         {this.props.drawerOpen ? (
-          <Button
-            onClick={this.onSignOutClick}
-            variant="contained"
-            color="secondary"
-          >
-            Sign Out
-          </Button>
+          <ListItem onClick={this.onSignOutClick} button key="logout">
+          <ListItemIcon>
+            <MeetingRoomIcon />
+          </ListItemIcon>
+          <ListItemText primary="Logout" />
+        </ListItem>
         ) : (
           <IconButton onClick={this.onSignOutClick} color="secondary">
             <MeetingRoomIcon />

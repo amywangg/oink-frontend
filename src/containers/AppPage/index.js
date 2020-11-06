@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom";
 
 import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
@@ -14,6 +15,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 
 import HomeIcon from "@material-ui/icons/Home";
 import SettingsIcon from "@material-ui/icons/Settings";
+import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 
 import usePersistedState from "../PersistedState";
 import { useStyles } from "./styles";
@@ -31,6 +33,8 @@ const AppPage = ({ children }) => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const history = useHistory();
 
   return (
     <div className={classes.root}>
@@ -72,13 +76,13 @@ const AppPage = ({ children }) => {
           )}
         </div>
         <List>
-          <ListItem button key="home">
-            <ListItemIcon>
+            <ListItem onClick={() => history.push('/login')} button key="home">
+            <ListItemIcon >
               <HomeIcon />
             </ListItemIcon>
             <ListItemText primary="Home" />
           </ListItem>
-          <ListItem button key="settings">
+          <ListItem onClick={() => history.push('/settings')} button key="settings">
             <ListItemIcon>
               <SettingsIcon />
             </ListItemIcon>
