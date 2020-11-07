@@ -27,7 +27,6 @@ export default function authReducer(state = INTIAL_STATE, action) {
         ...state,
         isNewUser: false,
         isLoading: false,
-        user_id: action.payload,
       };
     case types.GET_USER_FAILURE:
       return {
@@ -37,18 +36,30 @@ export default function authReducer(state = INTIAL_STATE, action) {
         error: action.error,
       };
     case types.CREATE_USER:
-      return { ...state, isNewUser: true, isSignedIn: true, isLoading: true };
+      return { ...state, isNewUser: true, isLoading: true };
     case types.CREATE_USER_SUCCESS:
       return {
         ...state,
-        isSignedIn: true,
         isLoading: false,
-        user_id: action.payload,
       };
     case types.CREATE_USER_FAILED:
       return {
         ...state,
         isSignedIn: false,
+        isLoading: false,
+        error: action.error,
+      };
+    case types.CREATE_FIRST_BUDGET:
+      return { ...state, isLoading: true };
+    case types.CREATE_FIRST_BUDGET_SUCCESS:
+      return {
+        ...state,
+        isNewUser: false,
+        isLoading: false,
+      };
+    case types.CREATE__FIRST_BUDGET_FAILED:
+      return {
+        ...state,
         isLoading: false,
         error: action.error,
       };

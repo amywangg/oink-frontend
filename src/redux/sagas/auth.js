@@ -37,7 +37,8 @@ function* fetchUserDetails(action) {
 
     if (userDetails === null) {
       // if user data cannot be retrieved then proceed to registration process
-      yield put({ type: types.CREATE_USER, data: action.payload });
+      // yield put({ type: types.CREATE_USER, data: action.payload });
+      yield call(createUser, action)
     } else {
       yield put({ type: types.GET_USER_SUCCESS, data: userDetails });
     }
