@@ -40,6 +40,7 @@ export default function authReducer(state = INTIAL_STATE, action) {
     case types.CREATE_USER_SUCCESS:
       return {
         ...state,
+        isNewUser: true, 
         isLoading: false,
       };
     case types.CREATE_USER_FAILED:
