@@ -15,7 +15,6 @@ import ListItemText from "@material-ui/core/ListItemText";
 
 import HomeIcon from "@material-ui/icons/Home";
 import SettingsIcon from "@material-ui/icons/Settings";
-import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 
 import usePersistedState from "../PersistedState";
 import { useStyles } from "./styles";
