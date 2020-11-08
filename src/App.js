@@ -6,7 +6,6 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Dashboard from "./containers/Dashboard";
 import LoginPage from "./containers/Auth/Login";
 
-import NewProfile from "./containers/AppPage/NewProfile";
 import RegisterPage from "./containers/Register"
 
 const App = () => {
@@ -14,7 +13,8 @@ const App = () => {
     <Router>
       <Switch>
         <ProtectedRoute exact path="/" component={Dashboard} />
-        <Route path="/settings" component={NewProfile} />
+        <ProtectedRoute exact path="/login" component={LoginPage} />
+        <Route path="/register" component={RegisterPage} />
       </Switch>
     </Router>
   );
