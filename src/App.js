@@ -13,7 +13,7 @@ const App = () => {
     <Router>
       <Switch>
         <ProtectedRoute exact path="/" component={Dashboard} />
-        <ProtectedRoute exact path="/login" component={LoginPage} />
+        <Route exact path="/login" component={LoginPage} />
         <Route path="/register" component={RegisterPage} />
       </Switch>
     </Router>
