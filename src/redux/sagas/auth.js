@@ -38,7 +38,7 @@ function* fetchUserDetails(action) {
     if (userDetails === null) {
       // if user data cannot be retrieved then proceed to registration process
       // yield put({ type: types.CREATE_USER, data: action.payload });
-      yield call(createUser, action)
+      yield call(createUser, action);
     } else {
       yield put({ type: types.GET_USER_SUCCESS, data: userDetails });
     }
@@ -54,6 +54,30 @@ export function* userWatcher() {
     yield call(fetchUserDetails, action);
   }
 }
+export function* firstBudgetWatcher() {
+  const firstBudgetChannel = yield actionChannel(types.CREATE_FIRST_BUDGET);
+  while (true) {
+    const action = yield take(firstBudgetChannel);
+    yield call(createFirstBudget, action);
+  }
+}
+
+// create new budget
+function* createFirstBudget(action) {
+  try {
+    const budget = action.payload;
+    const budgetDetails = yield axios
+      .post(`${API_URL}/budget/create`, budget)
+      .then((response) => response.data);
+    yield put({
+      type: types.CREATE_FIRST_BUDGET_SUCCESS,
+      data: budgetDetails,
+    });
+  } catch (error) {
+    yield put({ type: types.CREATE_FIRST_BUDGET_FAILED, error });
+  }
+}
+
 export function* authSaga() {
-  yield all([takeLatest(types.CREATE_USER, createUser)]);
+  yield all([takeLatest(types.CREATE_USER, createUser),takeLatest(types.CREATE_FIRST_BUDGET, createFirstBudget)]);
 }
