@@ -13,8 +13,6 @@ const App = () => {
   return (
     <Router>
       <Switch>
-        <Route path="/login" component={LoginPage} />
-        <Route path='/register' exact component={RegisterPage}/>
         <ProtectedRoute exact path="/" component={Dashboard} />
         <Route path="/settings" component={NewProfile} />
       </Switch>

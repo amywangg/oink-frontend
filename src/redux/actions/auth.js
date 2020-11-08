@@ -26,3 +26,7 @@ export const createUser = (user) => {
     payload: user,
   };
 };
+
+export const createFirstBudget = (budget) => {
+  return { type: types.CREATE_FIRST_BUDGET, payload: budget };
+};
