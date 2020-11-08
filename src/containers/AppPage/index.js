@@ -17,7 +17,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import SettingsIcon from "@material-ui/icons/Settings";
 import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 
-import usePersistedState from "../PersistedState";
+import usePersistedState from "../../utils/PersistedState";
 import { useStyles } from "./styles";
 import Logout from "../Auth/Logout";
 
