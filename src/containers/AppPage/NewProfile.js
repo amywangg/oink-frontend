@@ -17,73 +17,39 @@ class NewProfile extends Component {
     constructor() {
         super()
         this.state = {
-            firstName: "",
-            lastName: "",
-            email: "",
-            username: "",
-            password: "",
-            retype: "",
-            accept: false
+            budget: ""
         }
         this.handleChange = this.handleChange.bind(this)
       }
 
-    handleChange(event) {
-        const {name, value, type, checked} = event.target
-        type === "checkbox" ? this.setState({[name]: checked}) : this.setState({[name]: value})
+   handleChange(event) {
+       const {name, value} = event.target
+       this.setState({[name]: value})
     }
 
     handleSubmit(event) {
-        if (event.target.password.value !== event.target.retype.value){
-            event.preventDefault()
-            alert("Your passwords do not match.")
-       }
+       // if (event.target.password.value !== event.target.retype.value){
+            //event.preventDefault()
+           // alert("Your passwords do not match.")
+      // }
        //else if (if form fields are empty){
            //event.preventDefault()
            //put alert
        //}
-       else {
-        //insert code to send information to database      
-       }
+    //insert code to send information to database      
     }
 
     render(){
         return (
             <form onSubmit={this.handleSubmit}>
-                <h1>Welcome to Oink!</h1>
-                <h2>Your Information</h2>
-                <label>First Name
-                <input type="text" value={this.state.firstName} name="firstName" onChange={this.handleChange} />
-                <br/>
+                <h1>Settings</h1>
+                <h2>Create Budget: November</h2>
+                <label>Budget{' $'}
+                <input type="text" pattern="[0-9]*" value={this.state.budget} name="budget" onChange={this.handleChange} />
                 </label>
-                <label>Last Name 
-                <input type="text" value={this.state.lastName} name="lastName" onChange={this.handleChange} />
                 <br/>
-                </label>
-                <label>Email Address 
-                <input type="text" value={this.state.email} name="email" onChange={this.handleChange} />
-                <br/>
-                </label>
-                <h2>Account Information</h2>
-                <label>Username 
-                <input type="text" value={this.state.username} name="username"onChange={this.handleChange} />
-                <br/>
-                </label>
-                <label>Password 
-                <input type="text" value={this.state.password} name="password" onChange={this.handleChange} />
-                <br/>
-                </label>
-                <label>Retype Password
-                <input type="text" value={this.state.retype} name="retype" onChange={this.handleChange} />
-                <br/>
-                <br/>
-                </label>
-               <label>
-                    <input type="checkbox" checked={this.state.accept} name="accept" onChange={this.handleChange} />
-               I accept the terms and conditions.
-               </label>
                <br/>
-               <button disabled = {this.state.accept !== true} >Sign Up</button>
+               <button disabled = {this.state.budget == ""} >Create new budget</button>
             </form>
             )
     }
