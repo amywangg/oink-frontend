@@ -4,11 +4,11 @@ import "./index.css";
 import App from "./App";
 import { ThemeProvider } from "@material-ui/styles";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
-import reducers from "./redux/reducers";
 import { muiTheme } from "./theme";
 
-const store = createStore(reducers);
+import configureStore from "./utils/configureStore";
+
+const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>
