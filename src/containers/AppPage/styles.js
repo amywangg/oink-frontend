@@ -60,5 +60,5 @@ export const useStyles = makeStyles((theme) => ({
   },
   title: {
     fontSize: "15",
-  },
+  },  
 }));
