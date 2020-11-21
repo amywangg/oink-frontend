@@ -7,7 +7,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 
-import { Button, IconButton } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 
 const clientId =
@@ -43,16 +43,16 @@ class Logout extends Component {
     return !this.props.isSignedIn ? (
       <Redirect to={{ pathname: "/login" }} />
     ) : (
-      <div style={{ display: "flex"}}>
+      <div style={{ display: "flex" }}>
         {this.props.drawerOpen ? (
           <ListItem onClick={this.onSignOutClick} button key="logout">
-          <ListItemIcon>
-            <MeetingRoomIcon />
-          </ListItemIcon>
-          <ListItemText primary="Logout" />
-        </ListItem>
+            <ListItemIcon>
+              <MeetingRoomIcon />
+            </ListItemIcon>
+            <ListItemText primary="Logout" />
+          </ListItem>
         ) : (
-          <IconButton onClick={this.onSignOutClick} color="secondary">
+          <IconButton onClick={this.onSignOutClick}>
             <MeetingRoomIcon />
           </IconButton>
         )}

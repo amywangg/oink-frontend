@@ -1,20 +1,25 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import List from "@material-ui/core/List";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
+import {
+  Grid,
+  CssBaseline,
+  List,
+  IconButton,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Typography,
+} from "@material-ui/core";
 
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import HomeIcon from "@material-ui/icons/Home";
 import SettingsIcon from "@material-ui/icons/Settings";
+import oinkIcon2 from "../../assets/oink-icon-2.png";
+import oinkIcon from "../../assets/oink-icon.png";
 
 import usePersistedState from "../../utils/PersistedState";
 import { useStyles } from "./styles";
@@ -22,7 +27,7 @@ import Logout from "../Auth/Logout";
 
 const AppPage = ({ children }) => {
   const classes = useStyles();
-
+  const location = useLocation();
   const [open, setOpen] = usePersistedState("drawer", false);
 
   const handleDrawerOpen = () => {
@@ -54,12 +59,26 @@ const AppPage = ({ children }) => {
       >
         <div className={classes.toolbar}>
           {open ? (
-            <div>
-              <h1 style={{ color: "#fcaec7" }}>Oink</h1>
-              <IconButton onClick={handleDrawerClose}>
-                <ChevronLeftIcon />
-              </IconButton>
-            </div>
+            <Grid container>
+              <Grid item xs={4}>
+                <img width={40} height={40} alt="oinkicon" src={oinkIcon}></img>
+              </Grid>
+              <Grid item xs={7}>
+                {" "}
+                <Typography variant="h4" style={{ color: "#fcaec7" }}>
+                  <strong>Oink</strong>
+                </Typography>
+              </Grid>
+              <Grid item xs={1}>
+                <IconButton
+                  style={{ marginTop: 7 }}
+                  size="small"
+                  onClick={handleDrawerClose}
+                >
+                  <ChevronLeftIcon />
+                </IconButton>
+              </Grid>
+            </Grid>
           ) : (
             <IconButton
               color="inherit"
@@ -69,28 +88,52 @@ const AppPage = ({ children }) => {
               className={clsx(classes.menuButton, {
                 [classes.hide]: open,
               })}
+              disableRipple
             >
-              <MenuIcon />
+              <img width={40} height={40} alt="oinkicon" src={oinkIcon2}></img>
             </IconButton>
           )}
         </div>
         <List>
-            <ListItem onClick={() => history.push('/login')} button key="home">
-            <ListItemIcon >
+          <ListItem
+            className={
+              location.pathname === "/"
+                ? classes.activeSideBarButton
+                : classes.sideBarButton
+            }
+            onClick={() => history.push("/")}
+            button
+            key="home"
+          >
+            <ListItemIcon>
               <HomeIcon />
             </ListItemIcon>
             <ListItemText primary="Home" />
           </ListItem>
-          <ListItem onClick={() => history.push('/settings')} button key="settings">
+          <ListItem
+            onClick={() => history.push("/settings")}
+            button
+            key="settings"
+            className={
+              location.pathname === "/settings"
+                ? classes.activeSideBarButton
+                : classes.sideBarButton
+            }
+          >
             <ListItemIcon>
               <SettingsIcon />
             </ListItemIcon>
             <ListItemText primary="Settings" />
           </ListItem>
         </List>
-        <div className="circle1"></div>
-        <div className="circle2"></div>
-        <Logout drawerOpen={open} />
+
+        <div container className={classes.footer}>
+          <div className={open?classes.logoutOpen:classes.logout}>
+            <Logout drawerOpen={open} />
+          </div>
+          {open?<div className={classes.circle1}></div>:null}
+          {open?<div className={classes.circle2}></div>:null}
+        </div>
       </Drawer>
       <main
         className={clsx(classes.content, {
