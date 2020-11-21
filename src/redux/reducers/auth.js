@@ -64,6 +64,20 @@ export default function authReducer(state = INTIAL_STATE, action) {
         isLoading: false,
         error: action.error,
       };
+    /*case types.UPDATE_BUDGET:
+      return { ...state, isLoading: true};
+    case types.UPDATE_BUDGET_SUCCESS:
+      return {
+        ...state,
+        isNewUser: false,
+        isLoading: false,
+      };
+    case types.UPDATE_BUDGET_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.error,
+      }*/
     default:
       return state;
   }

@@ -12,12 +12,10 @@ const App = () => {
   return (
     <Router>
       <Switch>
-        <ProtectedRoute exact path="/" component={Dashboard} />
-
+      <ProtectedRoute exact path="/" component={Dashboard} />
         <ProtectedRoute path="/settings" component={Settings} />
         <Route exact path="/login" component={LoginPage} />
-        <ProtectedRoute path="/register" component={RegisterPage} />
-    
+        <Route path="/register" component={RegisterPage} />
       </Switch>
     </Router>
   );
