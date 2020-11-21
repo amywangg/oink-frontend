@@ -38,7 +38,7 @@ export const useStyles = makeStyles((theme) => ({
   toolbar: {
     display: "relative",
     alignItems: "left",
-    padding: theme.spacing(0, 2),
+    padding: theme.spacing(2,2,2,2),
     ...theme.mixins.toolbar,
     backgroundColor: "#fdf6f8",
   },

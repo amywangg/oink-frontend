@@ -52,7 +52,7 @@ class Logout extends Component {
           <ListItemText primary="Logout" />
         </ListItem>
         ) : (
-          <IconButton onClick={this.onSignOutClick} color="secondary">
+          <IconButton onClick={this.onSignOutClick}>
             <MeetingRoomIcon />
           </IconButton>
         )}

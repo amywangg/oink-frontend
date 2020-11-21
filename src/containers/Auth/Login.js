@@ -3,9 +3,44 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { signIn, getUser } from "../../redux/actions/auth";
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import {
+  Container,
+  Avatar,
+  Button,
+  Box,
+  Paper,
+} from "@material-ui/core";
 
 // import { withStyles } from "@material-ui/styles";
 // import {styles} from "./styles";
+
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {"Copyright © Oink "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(30),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+    align: "center",
+  },
+  submit: {
+    margin: theme.spacing(3),
+  },
+}));
 
 const clientId =
   "719809811606-vp65cuc29d77cajpuec06vl1g0hnfr0r.apps.googleusercontent.com";
@@ -50,16 +85,26 @@ class LoginPage extends Component {
     ) : this.props.isSignedIn && this.props.isNewUser ? (
       <Redirect to={{ pathname: "/register" }} />
     ) : (
-      <div>
-        <button onClick={this.onSignInClick} className="button">
-          <img
-            src="assets/google.png"
-            alt="google login"
-            className="icon"
-          ></img>
-          <span className="buttonText">Sign in with Google</span>
-        </button>
-      </div>
+      <Container>
+        <Paper className={useStyles.paper}>
+          <Avatar className={useStyles.avatar}></Avatar>
+          <Typography component="h1" variant="h5">
+            Sign Up for Oink
+          </Typography>
+          <Button
+            onClick={this.onSignInClick}
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={useStyles.submit}
+          >
+            Google Login
+          </Button>
+          <Box mt={8}>
+            <Copyright />
+          </Box>
+        </Paper>
+      </Container>
     );
   }
 }

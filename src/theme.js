@@ -19,22 +19,22 @@ export const muiTheme = createMuiTheme({
   typography: {
     fontFamily: "Roboto",
     h1: {
-      fontFamily: "Rubik",
+      fontFamily: "Roboto",
     },
     h2: {
-      fontFamily: "Rubik",
+      fontFamily: "Roboto",
     },
     h3: {
-      fontFamily: "Rubik",
+      fontFamily: "Roboto",
     },
     h4: {
-      fontFamily: "Rubik",
+      fontFamily: "Roboto",
     },
     h5: {
-      fontFamily: "Rubik",
+      fontFamily: "Roboto",
     },
     h6: {
-      fontFamily: "Rubik",
+      fontFamily: "Roboto",
     },
   },
 });

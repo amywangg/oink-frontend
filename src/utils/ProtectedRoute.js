@@ -7,10 +7,10 @@ class ProtectedRoute extends Component {
     const Component = this.props.component;
     return this.props.isSignedIn && !this.props.isNewUser ? (
       <Component />
-    ) : !this.props.isSignedIn ? (
-      <Redirect to={{ pathname: "/login" }} />
-    ) : (
+    ) : this.props.isSignedIn && this.props.isNewUser ?(
       <Redirect to={{ pathname: "/register" }} />
+    ) : (
+      <Redirect to={{ pathname: "/login" }} />
     );
   }
 }
