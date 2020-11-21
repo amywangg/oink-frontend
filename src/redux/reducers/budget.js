@@ -61,7 +61,7 @@ export default function budgetReducer(state = INTIAL_STATE, action) {
         isLoading: false,
         error: action.error,
       };
-      case types.UPDATE_BUDGET:
+    case types.UPDATE_BUDGET:
       return { ...state, isLoading: true};
     case types.UPDATE_BUDGET_SUCCESS:
       return {
