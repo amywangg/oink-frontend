@@ -1,13 +1,10 @@
 import * as types from "../actions/types";
 
 const INTIAL_STATE = {
-  isNewUser: null,
-  isSignedIn: null,
-  user: null,
   isLoading: false,
 };
 
-export default function authReducer(state = INTIAL_STATE, action) {
+export default function budgetReducer(state = INTIAL_STATE, action) {
   switch (action.type) {
     // actions for google authentication
     case types.SIGN_IN:
@@ -58,7 +55,7 @@ export default function authReducer(state = INTIAL_STATE, action) {
         isNewUser: false,
         isLoading: false,
       };
-    case types.CREATE_FIRST_BUDGET_FAILED:
+    case types.CREATE__FIRST_BUDGET_FAILED:
       return {
         ...state,
         isLoading: false,

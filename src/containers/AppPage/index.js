@@ -16,7 +16,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import HomeIcon from "@material-ui/icons/Home";
 import SettingsIcon from "@material-ui/icons/Settings";
 
-import usePersistedState from "../PersistedState";
+import usePersistedState from "../../utils/PersistedState";
 import { useStyles } from "./styles";
 import Logout from "../Auth/Logout";
 
