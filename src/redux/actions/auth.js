@@ -30,3 +30,7 @@ export const createUser = (user) => {
 export const createFirstBudget = (budget) => {
   return { type: types.CREATE_FIRST_BUDGET, payload: budget };
 };
+
+export const updateBudget = (budget) => {
+  return { type: types.UPDATE_BUDGET, payload: budget };
+};

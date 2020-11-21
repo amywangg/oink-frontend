@@ -11,5 +11,3 @@ export function getBudgetsSuccess(budget) {
 export function getBudgetsError(error) {
   return { type: types.GET_BUDGETS_FAILURE, error };
 }
-
-
