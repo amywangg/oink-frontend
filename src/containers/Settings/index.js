@@ -146,7 +146,7 @@ const SettingPage = ({ user, updateBudget }) => {
                </label>
                <br/>
                <br/>
-               <button disabled = {value.currentBudget == ""} >Set Current Budget</button>
+               <button disabled = {value.currentBudget === ""} >Set Current Budget</button>
                </form>
                <br/>
                <table {...getTableProps()}>

@@ -79,7 +79,7 @@ function* createFirstBudget(action) {
 }
 
 // update budget
-function* updateBudget(action) {
+/*function* updateBudget(action) {
   try {
     const user_id = action.payload.id;
     const userDetails = yield axios
@@ -97,8 +97,8 @@ function* updateBudget(action) {
   } catch (error) {
     yield put({ type: types.UPDATE_BUDGET_FAILED, error });
   }
-}
+}*/
 
 export function* authSaga() {
-  yield all([takeLatest(types.CREATE_USER, createUser),takeLatest(types.CREATE_FIRST_BUDGET, createFirstBudget), takeLatest(types.UPDATE_BUDGET, updateBudget)]);
+  yield all([takeLatest(types.CREATE_USER, createUser),takeLatest(types.CREATE_FIRST_BUDGET, createFirstBudget), /*takeLatest(types.UPDATE_BUDGET, updateBudget)*/]);
 }
