@@ -13,7 +13,6 @@ import {
   ListItemIcon,
   ListItemText,
   Typography,
-  Divider,
 } from "@material-ui/core";
 
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
