@@ -95,12 +95,16 @@ const Settings = ({ user, updateBudget }) => {
       prepareRow,
      } = useTable({ columns, data })
 
-    const tableHeader = () => {
-      let header = Object.keys(this.state.budgets[0])
+    /*const tableHeader = () => {
+      let header = Object.keys(budgets[0])
       return header.map((key, index) => {
          return <th key={index}>{key.toUpperCase()}</th>
       })
     }
+
+    const test = () => {
+    }
+    
 
     /*const pullPastBudgets = () => {
       return value.budgets.map((value.budgets, index) => {
