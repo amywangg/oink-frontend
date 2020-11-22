@@ -2,15 +2,17 @@ import * as types from "../actions/types";
 
 const INTIAL_STATE = {
   isNewUser: null,
-  isSignedIn: null,
-  user: null,
+  isSignedIn: !!localStorage.getItem("user"),
+  user: JSON.parse(localStorage.getItem("user")) || {},
   isLoading: false,
+  error: null
 };
 
 export default function authReducer(state = INTIAL_STATE, action) {
   switch (action.type) {
     // actions for google authentication
     case types.SIGN_IN:
+      localStorage.setItem("user", JSON.stringify(action.payload));
       return {
         ...state,
         isSignedIn: true,
@@ -18,7 +20,8 @@ export default function authReducer(state = INTIAL_STATE, action) {
         user: action.payload,
       };
     case types.SIGN_OUT:
-      return { ...state, isSignedIn: false, user: null };
+      localStorage.removeItem("user");
+      return { ...state, isSignedIn: false, user: {} };
     // actions for user retrieval from api
     case types.GET_USER:
       return { ...state, isLoading: true };

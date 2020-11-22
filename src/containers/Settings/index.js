@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useTable } from 'react-table'
-import AppPage from "./index";
+import AppPage from "../AppPage/index";
 import { connect } from "react-redux";
 import { updateBudget } from "../../redux/actions/auth";
 import { useHistory } from "react-router-dom";
@@ -17,7 +17,7 @@ import { useHistory } from "react-router-dom";
 
 // Dark line: #AB4A78
 
-const Settings = ({ user, updateBudget }) => {
+const SettingPage = ({ user, updateBudget }) => {
    const history = useHistory()
    const [value, setValue] = useState({
       client_id: user ? user.id : null,
@@ -176,4 +176,4 @@ const mapStateToProps = (state) => {
    return { user: state.auth.user }
  }
 
-export default connect(mapStateToProps, { updateBudget })(Settings);
+export default connect(mapStateToProps, { updateBudget })(SettingPage);
