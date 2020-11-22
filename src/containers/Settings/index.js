@@ -4,6 +4,7 @@ import AppPage from "../AppPage/index";
 import { connect } from "react-redux";
 import { updateBudget } from "../../redux/actions/auth";
 import { useHistory } from "react-router-dom";
+import styled from 'styled-components';
 
 // Color Palette
 // Dark Pink: #FF3576
@@ -37,7 +38,7 @@ const SettingPage = ({ user, updateBudget }) => {
 
     const handleSubmit = () => {
       updateBudget(value);
-      history.push("/");
+      history.push("/settings");
     }
 
     const getDateMonth = (monthNumber) => {
@@ -95,12 +96,16 @@ const SettingPage = ({ user, updateBudget }) => {
       prepareRow,
      } = useTable({ columns, data })
 
-    const tableHeader = () => {
-      let header = Object.keys(this.state.budgets[0])
+    /*const tableHeader = () => {
+      let header = Object.keys(budgets[0])
       return header.map((key, index) => {
          return <th key={index}>{key.toUpperCase()}</th>
       })
     }
+
+    const test = () => {
+    }
+    
 
     /*const pullPastBudgets = () => {
       return value.budgets.map((value.budgets, index) => {
@@ -136,13 +141,13 @@ const SettingPage = ({ user, updateBudget }) => {
          <AppPage>
             <form onSubmit={handleSubmit}>
                <h1 style={{color: "#FF8FB3"}}>SETTINGS</h1>
-               <h3 style={{color: "#F9DAE4"}}>Current Budget ({getDateMonth(new Date().getMonth())})</h3>
+               <h3 style={{color: "#FF8FB3"}}>Current Budget ({getDateMonth(new Date().getMonth())})</h3>
                <label>Budget{' $ '}
                <input type="text" style={{width:100}} pattern="[0-9]*" value={value.currentBudget} name="currentBudget" onChange={handleChange("currentBudget")} />
                </label>
                <br/>
                <br/>
-               <button disabled = {value.currentBudget == ""} >Set Current Budget</button>
+               <button disabled = {value.currentBudget === ""} color="FF8FB3" >Set Current Budget</button>
                </form>
                <br/>
                <table {...getTableProps()}>

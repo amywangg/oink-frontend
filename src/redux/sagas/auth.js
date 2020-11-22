@@ -78,6 +78,22 @@ function* createFirstBudget(action) {
   }
 }
 
+// update budget
+function* updateBudget(action) {
+  try {
+    const budget = action.payload;
+    const budgetDetails = yield axios
+      .post(`${API_URL}/budget/update`, budget)
+      .then((response) => response.data);
+    yield put({
+      type: types.UPDATE_BUDGET_SUCCESS,
+      data: budgetDetails,
+    });
+  } catch (error) {
+    yield put({ type: types.UPDATE_BUDGET_FAILED, error });
+  }
+}
+
 export function* authSaga() {
-  yield all([takeLatest(types.CREATE_USER, createUser),takeLatest(types.CREATE_FIRST_BUDGET, createFirstBudget)]);
+  yield all([takeLatest(types.CREATE_USER, createUser),takeLatest(types.CREATE_FIRST_BUDGET, createFirstBudget), takeLatest(types.UPDATE_BUDGET, updateBudget)]);
 }
