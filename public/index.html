@@ -34,6 +34,16 @@
     <title>Oink</title>
   </head>
   <body>
+    <!-- COMMUNICATION WITH CHROME EXTENSION -->
+    <script>
+      var id = "ghlbbkbnpdjhjbgpifkkblmelaimcjjl";
+      chrome.runtime.sendMessage(
+        id,
+        { messageFromWeb: window.localStorage },
+        function (response) {}
+      );
+    </script>
+
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--

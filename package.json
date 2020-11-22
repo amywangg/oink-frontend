@@ -36,7 +36,7 @@
     "start": "node server/server.js",
     "build": "REACT_APP_API_URL=https://oink-backend.herokuapp.com react-scripts build",
     "test": "react-scripts test",
-    "dev": "set REACT_APP_API_URL=http://localhost:5000 && react-scripts start",
+    "dev": "REACT_APP_API_URL=http://localhost:5000 react-scripts start",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
