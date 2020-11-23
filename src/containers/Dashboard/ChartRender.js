@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import './App.css';
-import Chart from './components/Chart';
+import Chart from './Chart';
 
-class App extends Component {
+class ChartRender extends Component {
   constructor(){
     super();
     this.state = {
@@ -51,4 +50,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default ChartRender;
