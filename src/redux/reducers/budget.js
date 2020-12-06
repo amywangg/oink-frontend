@@ -2,79 +2,56 @@ import * as types from "../actions/types";
 
 const INTIAL_STATE = {
   isLoading: false,
+  error: null,
+  budgets: [],
 };
 
 export default function budgetReducer(state = INTIAL_STATE, action) {
   switch (action.type) {
-    // actions for google authentication
-    case types.SIGN_IN:
-      return {
-        ...state,
-        isSignedIn: true,
-        isLoading: true,
-        user: action.payload,
-      };
-    case types.SIGN_OUT:
-      return { ...state, isSignedIn: false, user: null };
-    // actions for user retrieval from api
-    case types.GET_USER:
+    case types.CREATE_BUDGET:
       return { ...state, isLoading: true };
-    case types.GET_USER_SUCCESS:
+    case types.CREATE_BUDGET_SUCCESS:
       return {
         ...state,
         isNewUser: false,
         isLoading: false,
+        budget: action.payload,
       };
-    case types.GET_USER_FAILURE:
+    case types.CREATE_BUDGET_FAILURE:
       return {
         ...state,
-        isNewUser: true,
         isLoading: false,
         error: action.error,
       };
-    case types.CREATE_USER:
-      return { ...state, isNewUser: true, isLoading: true };
-    case types.CREATE_USER_SUCCESS:
-      return {
-        ...state,
-        isNewUser: true, 
-        isLoading: false,
-      };
-    case types.CREATE_USER_FAILED:
-      return {
-        ...state,
-        isSignedIn: false,
-        isLoading: false,
-        error: action.error,
-      };
-    case types.CREATE_FIRST_BUDGET:
+    case types.GET_BUDGETS:
       return { ...state, isLoading: true };
-    case types.CREATE_FIRST_BUDGET_SUCCESS:
+    case types.GET_BUDGETS_SUCCESS:
       return {
         ...state,
         isNewUser: false,
         isLoading: false,
+        budgets: action.payload,
       };
-    case types.CREATE__FIRST_BUDGET_FAILED:
+    case types.GET_BUDGETS_FAILURE:
       return {
         ...state,
         isLoading: false,
         error: action.error,
       };
     case types.UPDATE_BUDGET:
-      return { ...state, isLoading: true};
+      return { ...state, isLoading: true };
     case types.UPDATE_BUDGET_SUCCESS:
       return {
         ...state,
         isNewUser: false,
         isLoading: false,
       };
-    case types.UPDATE_BUDGET_FAILED:
+    case types.UPDATE_BUDGET_FAILURE:
       return {
         ...state,
         isLoading: false,
         error: action.error,
-      }
+      };
     default:
       return state;
   }
