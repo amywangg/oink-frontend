@@ -9,7 +9,7 @@ function* createBudget(action) {
   try {
     const budget = action.payload;
     yield axios
-      .post(${API_URL}/budget/create, budget)
+      .post(`${API_URL}/budget/create`, budget)
       .then((response) => response.data);
     yield put({ type: types.CREATE_BUDGET_SUCCESS, budget });
   } catch (error) {
@@ -26,7 +26,7 @@ function* getBudgets(action) {
   try {
     const user_id = action.payload;
     const budgets = yield axios
-      .get(${API_URL}/budget/user/${user_id})
+      .get(`${API_URL}/budget/user/${user_id}`)
       .then((response) =>response.data);
     yield put({ type: types.GET_BUDGETS_SUCCESS, budgets });
   } catch (error) {

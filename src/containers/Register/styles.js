@@ -7,6 +7,7 @@ export const useStyles = makeStyles((theme) => ({
     },
     margin: {
       margin: theme.spacing(1),
+      width: '50vw'
     },
     withoutLabel: {
       marginTop: theme.spacing(3),

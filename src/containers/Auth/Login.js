@@ -2,19 +2,11 @@ import React, { Component } from "react";
 // refresh token
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { signIn, getUser } from "../../redux/actions/auth";
+import { signIn } from "../../redux/actions/auth";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import {
-  Container,
-  Avatar,
-  Button,
-  Box,
-  Paper,
-} from "@material-ui/core";
-
-// import { withStyles } from "@material-ui/styles";
-// import {styles} from "./styles";
+import { Grid, Container, Button, Box, Paper } from "@material-ui/core";
+import oinkIcon2 from "../../assets/oink-icon-2.png";
 
 function Copyright() {
   return (
@@ -71,7 +63,6 @@ class LoginPage extends Component {
         email: profile.getEmail(),
       };
       this.props.signIn(payload);
-      this.props.getUser(payload);
     }
   };
 
@@ -85,21 +76,35 @@ class LoginPage extends Component {
     ) : this.props.isSignedIn && this.props.isNewUser ? (
       <Redirect to={{ pathname: "/register" }} />
     ) : (
-      <Container>
-        <Paper className={useStyles.paper}>
-          <Avatar className={useStyles.avatar}></Avatar>
-          <Typography component="h1" variant="h5">
-            Sign Up for Oink
-          </Typography>
-          <Button
-            onClick={this.onSignInClick}
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={useStyles.submit}
-          >
-            Google Login
-          </Button>
+      <Container style={{ marginTop: "30vh", width: "75vw" }}>
+        <Paper
+          className={useStyles.paper}
+          style={{
+            textAlign: "center",
+            height: "30vh",
+            backgroundColor: "#F9DAE4",
+          }}
+        >
+          <Grid container>
+            <Grid item xs={12} style={{ marginTop: 50 }}>
+              <Typography variant="h4" >
+                Sign Up for Oink!
+              </Typography>
+            </Grid>
+            <Grid item xs={12} style={{ marginTop: 40 }}>
+              <Button
+                onClick={this.onSignInClick}
+                fullWidth
+                variant="contained"
+                color="secondary"
+                className={useStyles.submit}
+                style={{ width: "50vw" }}
+              >
+                Google Login
+              </Button>
+            </Grid>
+          </Grid>
+
           <Box mt={8}>
             <Copyright />
           </Box>
@@ -113,4 +118,4 @@ const mapStateToProps = (state) => {
   return { isSignedIn: state.auth.isSignedIn, isNewUser: state.auth.isNewUser };
 };
 
-export default connect(mapStateToProps, { signIn, getUser })(LoginPage);
+export default connect(mapStateToProps, { signIn })(LoginPage);

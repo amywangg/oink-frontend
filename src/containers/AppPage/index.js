@@ -127,7 +127,7 @@ const AppPage = ({ children }) => {
           </ListItem>
         </List>
 
-        <div container className={classes.footer}>
+        <div className={classes.footer}>
           <div className={open?classes.logoutOpen:classes.logout}>
             <Logout drawerOpen={open} />
           </div>

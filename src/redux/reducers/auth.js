@@ -5,7 +5,7 @@ const INTIAL_STATE = {
   isSignedIn: !!localStorage.getItem("user"),
   user: JSON.parse(localStorage.getItem("user")) || {},
   isLoading: false,
-  error: null
+  error: null,
 };
 
 export default function authReducer(state = INTIAL_STATE, action) {
@@ -15,19 +15,13 @@ export default function authReducer(state = INTIAL_STATE, action) {
       localStorage.setItem("user", JSON.stringify(action.payload));
       return {
         ...state,
-        isSignedIn: true,
         isLoading: true,
         user: action.payload,
       };
-    case types.SIGN_OUT:
-      localStorage.removeItem("user");
-      return { ...state, isSignedIn: false, user: {} };
-    // actions for user retrieval from api
-    case types.GET_USER:
-      return { ...state, isLoading: true };
     case types.GET_USER_SUCCESS:
       return {
         ...state,
+        isSignedIn: true,
         isNewUser: false,
         isLoading: false,
       };
@@ -38,15 +32,19 @@ export default function authReducer(state = INTIAL_STATE, action) {
         isLoading: false,
         error: action.error,
       };
+    case types.SIGN_OUT:
+      localStorage.removeItem("user");
+      return { ...state, isSignedIn: false, user: {} };
     case types.CREATE_USER:
       return { ...state, isNewUser: true, isLoading: true };
     case types.CREATE_USER_SUCCESS:
       return {
         ...state,
-        isNewUser: true, 
+        isSignedIn: true,
+        isNewUser: true,
         isLoading: false,
       };
-    case types.CREATE_USER_FAILED:
+    case types.CREATE_USER_FAILURE:
       return {
         ...state,
         isSignedIn: false,
@@ -54,14 +52,15 @@ export default function authReducer(state = INTIAL_STATE, action) {
         error: action.error,
       };
     case types.CREATE_FIRST_BUDGET:
-      return { ...state, isLoading: true };
+      return { ...state,  isNewUser: false, isLoading: true };
     case types.CREATE_FIRST_BUDGET_SUCCESS:
       return {
         ...state,
+        isSignedIn: true,
         isNewUser: false,
         isLoading: false,
       };
-    case types.CREATE_FIRST_BUDGET_FAILED:
+    case types.CREATE_FIRST_BUDGET_FAILURE:
       return {
         ...state,
         isLoading: false,
