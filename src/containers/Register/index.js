@@ -12,6 +12,8 @@ import {
   MenuItem,
   Button,
   Container,
+  Grid,
+  Paper,
 } from "@material-ui/core";
 import { useStyles } from "./styles";
 import { useHistory } from "react-router-dom";
@@ -50,40 +52,78 @@ const RegisterPage = ({ isSignedIn, isNewUser, user, createFirstBudget }) => {
     values.client_id === null ? (
     <Redirect to={{ pathname: "/login" }} />
   ) : (
-    <Container>
-      <form onSubmit={handleSubmit}>
-        <h2>Create Your First Budget</h2>
-        <FormControl fullWidth className={classes.margin}>
-          <InputLabel htmlFor="standard-adornment-amount">Amount</InputLabel>
-          <Input
-            id="standard-adornment-amount"
-            value={values.amount}
-            onChange={handleChange("amount")}
-            startAdornment={<InputAdornment position="start">$</InputAdornment>}
-          />
-        </FormControl>
-        <TextField
-          id="outlined-select-currency"
-          select
-          label="Category"
-          value={values.category}
-          onChange={handleChange("category")}
-          helperText="Please select your Category"
-          variant="outlined"
-          color="secondary"
-        >
-          {categories.map((option) => (
-            <MenuItem key={option} value={option}>
-              {option}
-            </MenuItem>
-          ))}
-        </TextField>
-        <br />
-        <br />
-        <Button type="submit" disabled={values.amount === ""}>
-          Create new budget
-        </Button>
-      </form>
+    <Container style={{ marginTop: "30vh", width: "75vw" }}>
+      <Paper
+        className={useStyles.paper}
+        style={{
+          textAlign: "center",
+          height: "40vh",
+          backgroundColor: "#F9DAE4",
+        }}
+      >
+        <Grid container>
+          <Grid item xs={12}>
+            <form onSubmit={handleSubmit}>
+              <h2>Create Your First Budget</h2>
+              <Grid item container>
+                <Grid
+                  xs={12}
+                  style={{
+                    textAlign: "center",
+                  }}
+                >
+                  <FormControl fullWidth className={classes.margin}>
+                    <InputLabel htmlFor="standard-adornment-amount">
+                      Amount
+                    </InputLabel>
+                    <Input
+                      id="standard-adornment-amount"
+                      value={values.amount}
+                      onChange={handleChange("amount")}
+                      startAdornment={
+                        <InputAdornment position="start">$</InputAdornment>
+                      }
+                    />
+                  </FormControl>
+                </Grid>
+                <Grid
+                  item
+                  xs={12}
+                  style={{
+                    textAlign: "center",
+                  }}
+                >
+                  <TextField
+                    id="outlined-select-currency"
+                    select
+                    label="Category"
+                    value={values.category}
+                    onChange={handleChange("category")}
+                    helperText="Please select your Category"
+                    variant="outlined"
+                    color="secondary"
+                    style={{ width: "50vw", marginTop: 30 }}
+                  >
+                    {categories.map((option) => (
+                      <MenuItem key={option} value={option}>
+                        {option}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
+              </Grid>
+
+              <Button
+                style={{ marginTop: 30 , background:'white'}}
+                type="submit"
+                disabled={values.amount === ""}
+              >
+                Create new budget
+              </Button>
+            </form>
+          </Grid>
+        </Grid>
+      </Paper>
     </Container>
   );
 };
