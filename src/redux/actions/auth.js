@@ -13,13 +13,6 @@ export const signOut = () => {
   };
 };
 
-export const getUser = (user) => {
-  return {
-    type: types.GET_USER,
-    payload: user,
-  };
-};
-
 export const createUser = (user) => {
   return {
     type: types.CREATE_USER,
@@ -31,6 +24,3 @@ export const createFirstBudget = (budget) => {
   return { type: types.CREATE_FIRST_BUDGET, payload: budget };
 };
 
-export const updateBudget = (budget) => {
-  return { type: types.UPDATE_BUDGET, payload: budget };
-};

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 // refresh token
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { signIn, getUser } from "../../redux/actions/auth";
+import { signIn } from "../../redux/actions/auth";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import {
@@ -12,9 +12,6 @@ import {
   Box,
   Paper,
 } from "@material-ui/core";
-
-// import { withStyles } from "@material-ui/styles";
-// import {styles} from "./styles";
 
 function Copyright() {
   return (
@@ -71,7 +68,6 @@ class LoginPage extends Component {
         email: profile.getEmail(),
       };
       this.props.signIn(payload);
-      this.props.getUser(payload);
     }
   };
 
@@ -113,4 +109,4 @@ const mapStateToProps = (state) => {
   return { isSignedIn: state.auth.isSignedIn, isNewUser: state.auth.isNewUser };
 };
 
-export default connect(mapStateToProps, { signIn, getUser })(LoginPage);
+export default connect(mapStateToProps, { signIn })(LoginPage);

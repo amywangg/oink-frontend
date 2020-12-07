@@ -11,12 +11,10 @@ import {
   TextField,
   MenuItem,
   Button,
+  Container,
 } from "@material-ui/core";
 import { useStyles } from "./styles";
 import { useHistory } from "react-router-dom";
-
-// import { withStyles } from "@material-ui/styles";
-// import {styles} from "./styles";
 
 const RegisterPage = ({ isSignedIn, isNewUser, user, createFirstBudget }) => {
   const history = useHistory();
@@ -31,8 +29,8 @@ const RegisterPage = ({ isSignedIn, isNewUser, user, createFirstBudget }) => {
   ];
 
   const handleSubmit = () => {
-    createFirstBudget(values);
     history.push("/");
+    createFirstBudget(values);
   };
 
   const [values, setValues] = useState({
@@ -52,39 +50,41 @@ const RegisterPage = ({ isSignedIn, isNewUser, user, createFirstBudget }) => {
     values.client_id === null ? (
     <Redirect to={{ pathname: "/login" }} />
   ) : (
-    <form onSubmit={handleSubmit}>
-      <h2>Create Your First Budget</h2>
-      <FormControl fullWidth className={classes.margin}>
-        <InputLabel htmlFor="standard-adornment-amount">Amount</InputLabel>
-        <Input
-          id="standard-adornment-amount"
-          value={values.amount}
-          onChange={handleChange("amount")}
-          startAdornment={<InputAdornment position="start">$</InputAdornment>}
-        />
-      </FormControl>
-      <TextField
-        id="outlined-select-currency"
-        select
-        label="Category"
-        value={values.category}
-        onChange={handleChange("category")}
-        helperText="Please select your Category"
-        variant="outlined"
-        color="secondary"
-      >
-        {categories.map((option) => (
-          <MenuItem key={option} value={option}>
-            {option}
-          </MenuItem>
-        ))}
-      </TextField>
-      <br />
-      <br />
-      <Button type="submit" disabled={values.amount === ""}>
-        Create new budget
-      </Button>
-    </form>
+    <Container>
+      <form onSubmit={handleSubmit}>
+        <h2>Create Your First Budget</h2>
+        <FormControl fullWidth className={classes.margin}>
+          <InputLabel htmlFor="standard-adornment-amount">Amount</InputLabel>
+          <Input
+            id="standard-adornment-amount"
+            value={values.amount}
+            onChange={handleChange("amount")}
+            startAdornment={<InputAdornment position="start">$</InputAdornment>}
+          />
+        </FormControl>
+        <TextField
+          id="outlined-select-currency"
+          select
+          label="Category"
+          value={values.category}
+          onChange={handleChange("category")}
+          helperText="Please select your Category"
+          variant="outlined"
+          color="secondary"
+        >
+          {categories.map((option) => (
+            <MenuItem key={option} value={option}>
+              {option}
+            </MenuItem>
+          ))}
+        </TextField>
+        <br />
+        <br />
+        <Button type="submit" disabled={values.amount === ""}>
+          Create new budget
+        </Button>
+      </form>
+    </Container>
   );
 };
 
